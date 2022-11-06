@@ -1,0 +1,11 @@
+{
+  "id": "memories-of-green",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL"],
+    "authors": ["Mårten Rånge", "sam hocevar", "nmz", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Memories of green",
+    "summary": "Memories of green is an impression of the hercules screen of old"
+  }
+}
