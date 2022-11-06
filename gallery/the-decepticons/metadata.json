@@ -1,0 +1,12 @@
+{
+  "id": "the-decepticons",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "The Decepticons",
+    "summary": "The Decepticons logo with a metallic finish and red background",
+    "shadertoy": "NdjGDK"
+  }
+}
