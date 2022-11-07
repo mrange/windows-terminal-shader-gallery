@@ -1,0 +1,138 @@
+<#@ output extension=".html"            #>
+<#@ import namespace="System"           #>
+<#@ import namespace="System.IO"        #>
+<#@ import namespace="System.Text"      #>
+<#@ import namespace="System.Text.Json" #>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Windows Terminal Shader Gallery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Josefin Slab' rel='stylesheet'>
+    <style>
+      body {
+          font-family: 'Josefin Slab';
+          font-size: 4vh;
+          color: white;
+          background-color: black;
+      }
+
+      pre {
+        color: #6E8;
+      }
+
+      a:link {
+        text-decoration: none;
+        color: #FF8240;
+      }
+
+      a:visited {
+        text-decoration: none;
+        color: #FF8240;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        color: #DFF180;
+      }
+
+      a:active {
+        text-decoration: underline;
+        color: #DFF180;
+      }
+  </style>
+  </head>
+  <body>
+    <h1>Windows Terminal Shader Gallery</h1>
+
+    <img width="50%" alt="Windows terminal with a shader background" src="images/wt.jpg"/>
+
+    <p>"Everyone" loves cool looking shaders in Windows Terminal!</p>
+
+    <p>However, finding them and installing them are a bit of a pain so we collected some here in this gallery and developed a tool for you to simplify installing a shader in your terminal.</p>
+
+    <h2>Tool installation</h2>
+
+    <pre>
+# Install the wt-shader-tool globally
+> dotnet tool install -g wt-shader-tool
+# List all shaders in the gallery
+> wt-shader-tool --list
+# Install the memory of green shader in your default profile
+> wt-shader-tool --install memories-of-green
+    </pre>
+
+    <h2>Gallery</h2>
+<#
+  var sitePath    = Path.GetFullPath("site/");
+  var imagesPath  = Path.Combine(sitePath, "images");
+  var galleryPath = Path.GetFullPath("gallery/");
+  Console.WriteLine($"Iterating all shaders in: {galleryPath}");
+  var shaderPaths = Directory.GetDirectories(galleryPath);
+#>
+<# foreach (var shaderPath in shaderPaths) { #>
+<#
+  Console.WriteLine($"Processing {shaderPath}");
+  var shaderImagePath     = Path.Combine(shaderPath, "sample-0.jpg");
+  var shaderMetaDataPath  = Path.Combine(shaderPath, "metadata.json");
+
+  var shaderJson          = File.ReadAllText(shaderMetaDataPath);
+  var shaderDoc           = JsonDocument.Parse(shaderJson);
+
+  var rootElement         = shaderDoc.RootElement;
+  var infoElement         = rootElement.GetProperty("info");
+  var legalElement        = rootElement.GetProperty("legal");
+
+  var id                  = rootElement.GetProperty("id").GetString();
+
+  var title               = infoElement.GetProperty("title").GetString();
+  var description         = infoElement.GetProperty("summary").GetString();
+  var shadertoy           = infoElement.GetProperty("shadertoy").GetString();
+
+  var authors             = "";
+  {
+    var array = legalElement.GetProperty("authors");
+    var sb = new StringBuilder();
+    var len= array.GetArrayLength();
+    for (var i = 0; i < len; ++i)
+    {
+      var val = array[i].GetString();
+      var prefix = i switch
+      {
+        0                   => ""
+      , _ when i == len - 1 => " and "
+      , _                   => ", "
+      };
+      sb.Append(prefix);
+      sb.Append(val);
+      authors = sb.ToString();
+    }
+
+  }
+
+  var outputImageDir      = Path.Combine(imagesPath, id);
+  var outputImagePath     = Path.Combine(outputImageDir, "sample-0.jpg");
+
+  Directory.CreateDirectory(outputImageDir);
+  Console.WriteLine($"Copying shader image from {shaderImagePath} to {outputImagePath}");
+  File.Copy(shaderImagePath, outputImagePath, overwrite: true);
+
+#>
+    <h3><#=title#></h3>
+
+    <img width="50%" alt="Windows terminal with '<#=title#>' in the background" src="images/<#=id#>/sample-0.jpg"/>
+
+    <p><i><#=description#></i></p>
+
+    <p>See '<#=title#>' live at <a target="_blank" href="https://www.shadertoy.com/view/<#=shadertoy#>">shadertoy.com</a></p>
+
+    <p>Authors: <#=authors#></p>
+
+    <pre>
+# Install '<#=title#>' shader in your default profile
+> wt-shader-tool --install <#=id#>
+    </pre>
+
+<# } #>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Windows Terminal Shader Gallery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Josefin Slab' rel='stylesheet'>
+    <style>
+      body {
+          font-family: 'Josefin Slab';
+          font-size: 4vh;
+          color: white;
+          background-color: black;
+      }
+
+      pre {
+        color: #6E8;
+      }
+
+      a:link {
+        text-decoration: none;
+        color: #FF8240;
+      }
+
+      a:visited {
+        text-decoration: none;
+        color: #FF8240;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        color: #DFF180;
+      }
+
+      a:active {
+        text-decoration: underline;
+        color: #DFF180;
+      }
+  </style>
+  </head>
+  <body>
+    <h1>Windows Terminal Shader Gallery</h1>
+
+    <img width="50%" alt="Windows terminal with a shader background" src="images/wt.jpg"/>
+
+    <p>"Everyone" loves cool looking shaders in Windows Terminal!</p>
+
+    <p>However, finding them and installing them are a bit of a pain so we collected some here in this gallery and developed a tool for you to simplify installing a shader in your terminal.</p>
+
+    <h2>Tool installation</h2>
+
+    <pre>
+# Install the wt-shader-tool globally
+> dotnet tool install -g wt-shader-tool
+# List all shaders in the gallery
+> wt-shader-tool --list
+# Install the memory of green shader in your default profile
+> wt-shader-tool --install memories-of-green
+    </pre>
+
+    <h2>Gallery</h2>
+    <h3>Memories of green</h3>
+
+    <img width="50%" alt="Windows terminal with 'Memories of green' in the background" src="images/memories-of-green/sample-0.jpg"/>
+
+    <p><i>Memories of green is an impression of the hercules screen of old</i></p>
+
+    <p>See 'Memories of green' live at <a target="_blank" href="https://www.shadertoy.com/view/DdSGzy">shadertoy.com</a></p>
+
+    <p>Authors: Mårten Rånge, sam hocevar, nmz and Matt Taylor</p>
+
+    <pre>
+# Install 'Memories of green' shader in your default profile
+> wt-shader-tool --install memories-of-green
+    </pre>
+
+    <h3>The Decepticons</h3>
+
+    <img width="50%" alt="Windows terminal with 'The Decepticons' in the background" src="images/the-decepticons/sample-0.jpg"/>
+
+    <p><i>The Decepticons logo with a metallic finish and red background</i></p>
+
+    <p>See 'The Decepticons' live at <a target="_blank" href="https://www.shadertoy.com/view/NdjGDK">shadertoy.com</a></p>
+
+    <p>Authors: Mårten Rånge, sam hocevar and Inigo Quilez</p>
+
+    <pre>
+# Install 'The Decepticons' shader in your default profile
+> wt-shader-tool --install the-decepticons
+    </pre>
+
+  </body>
+</html>

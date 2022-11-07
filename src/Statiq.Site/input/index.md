@@ -1,2 +1,4 @@
-# Title: Windows Terminal Shader gallery
+# Windows Terminal Shader Gallery
+
+
 
