@@ -1,4 +1,0 @@
-# Windows Terminal Shader Gallery
-
-
-
