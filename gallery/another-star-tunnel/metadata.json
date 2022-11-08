@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "another-star-tunnel",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "mercury", "sam hocevar", "Inigo Quilez", "P_Malin", "Pascal Gilcher"]
+  },
+  "info": {
+    "title": "Another star tunnel",
+    "summary": "I grew up with Amiga and Atari ST and star tunnels were an important demo effect at that time so naturally I wanted to recreate the feeling. Inspired by P_Malin's 'Star Tunnel'",
+    "shadertoy": "fsS3Dt"
+  }
+}
