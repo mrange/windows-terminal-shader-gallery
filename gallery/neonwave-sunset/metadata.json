@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "neonwave-sunset",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez", "nmz", "mercury", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Neonwave sunset",
+    "summary": "Neonwave sunset is an attempt to recreate the common neonwave theme of driving along a road into the sunset.",
+    "shadertoy": "7dtcRj"
+  }
+}
