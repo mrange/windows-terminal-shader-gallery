@@ -1,6 +1,7 @@
 <#@ output extension=".html"            #>
 <#@ import namespace="System"           #>
 <#@ import namespace="System.IO"        #>
+<#@ import namespace="System.Linq"      #>
 <#@ import namespace="System.Text"      #>
 <#@ import namespace="System.Text.Json" #>
 <!DOCTYPE html>
@@ -8,17 +9,27 @@
   <head>
     <title>Windows Terminal Shader Gallery</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href='https://fonts.googleapis.com/css?family=Josefin Slab' rel='stylesheet'>
     <style>
-      body {
-          font-family: 'Josefin Slab';
-          font-size: 4vh;
-          color: white;
-          background-color: black;
+      .gfx {
+        width: 80vw;
+      }
+
+      .glow {
+        color: #6E8;
+        text-shadow: 0 0 2vw #6E8, 0 0 4vw #374, 0 0 6vw #374;
       }
 
       pre {
-        color: #6E8;
+        font-size: 2vw;
+      }
+
+      body {
+          font-family: 'Josefin Slab';
+          font-size: 3vw;
+          color: white;
+          background-color: black;
       }
 
       a:link {
@@ -43,17 +54,17 @@
   </style>
   </head>
   <body>
-    <h1>Windows Terminal Shader Gallery</h1>
+    <h1 class="glow">Windows Terminal Shader Gallery</h1>
 
-    <img width="50%" alt="Windows terminal with a shader background" src="assets/wt.jpg"/>
+    <p><span class="glow">Everyone</span> loves cool looking shaders in Windows Terminal!</p>
 
-    <p>"Everyone" loves cool looking shaders in Windows Terminal!</p>
+    <iframe style="width: 80vw; height: 40vw;" frameborder="0" src="https://www.shadertoy.com/embed/DdSGzy?gui=true&t=10&paused=false&muted=true" allowfullscreen></iframe>
 
     <p>However, finding them and installing them are a bit of a pain so we collected some here in this gallery and developed a tool for you to simplify installing a shader in your terminal.</p>
 
     <h2>Tool installation</h2>
 
-    <pre>
+    <pre class="glow">
 # Install the wt-shader-tool globally
 > dotnet tool install -g wt-shader-tool
 # List all shaders in the gallery
@@ -65,9 +76,8 @@
     <h2>Gallery</h2>
 <#
   var docsPath      = Path.GetFullPath("docs/");
-  var genAssetsPath = Path.Combine(docsPath, "gen-assets");
   var galleryPath   = Path.GetFullPath("gallery/");
-  var shaderPaths   = Directory.GetDirectories(galleryPath);
+  var shaderPaths   = Directory.GetDirectories(galleryPath).OrderBy(p => p).ToArray();
 
   Console.WriteLine($"Iterating all shaders in: {galleryPath}");
 #>
@@ -111,25 +121,18 @@
 
   }
 
-  var outputImageDir      = Path.Combine(genAssetsPath, id);
-  var outputImagePath     = Path.Combine(outputImageDir, "sample-0.jpg");
-
-  Directory.CreateDirectory(outputImageDir);
-  Console.WriteLine($"Copying shader image from {shaderImagePath} to {outputImagePath}");
-  File.Copy(shaderImagePath, outputImagePath, overwrite: true);
-
 #>
     <h3><#=title#></h3>
 
-    <img width="50%" alt="Windows terminal with '<#=title#>' in the background" src="gen-assets/<#=id#>/sample-0.jpg"/>
-
     <p><i><#=description#></i></p>
+
+    <img class="gfx" alt="The shader '<#=title#>' courtesy of shadertoy.com" src="https://www.shadertoy.com/media/shaders/<#=shadertoy#>.jpg"/>
 
     <p>See '<#=title#>' live at <a target="_blank" href="https://www.shadertoy.com/view/<#=shadertoy#>">shadertoy.com</a></p>
 
     <p>Authors: <#=authors#></p>
 
-    <pre>
+    <pre class="glow">
 # Install '<#=title#>' shader in your default profile
 > wt-shader-tool --install <#=id#>
     </pre>
