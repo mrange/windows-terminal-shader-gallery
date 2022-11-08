@@ -12,6 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href='https://fonts.googleapis.com/css?family=Josefin Slab' rel='stylesheet'>
     <style>
+      div.center {
+        display: flex;
+        justify-content: center;
+      }
+
+
       .gfx {
         width: 80vw;
       }
@@ -20,7 +26,6 @@
         color: #6E8;
         text-shadow: 0 0 2vw #6E8, 0 0 4vw #374, 0 0 6vw #374;
       }
-
       pre {
         font-size: 2vw;
       }
@@ -58,7 +63,7 @@
 
     <p><span class="glow">Everyone</span> loves cool looking shaders in Windows Terminal!</p>
 
-    <iframe style="width: 80vw; height: 40vw;" frameborder="0" src="https://www.shadertoy.com/embed/DdSGzy?gui=true&t=10&paused=false&muted=true" allowfullscreen></iframe>
+    <iframe style="width: 100vw; height: 40vw;" frameborder="0" src="https://www.shadertoy.com/embed/DdSGzy?gui=true&t=10&paused=false&muted=true" allowfullscreen></iframe>
 
     <p>However, finding them and installing them are a bit of a pain so we collected some here in this gallery and developed a tool for you to simplify installing a shader in your terminal.</p>
 
@@ -126,7 +131,9 @@
 
     <p><i><#=description#></i></p>
 
-    <img class="gfx" alt="The shader '<#=title#>' courtesy of shadertoy.com" src="https://www.shadertoy.com/media/shaders/<#=shadertoy#>.jpg"/>
+    <div class="center">
+      <img class="gfx" alt="The shader '<#=title#>' courtesy of shadertoy.com" src="https://www.shadertoy.com/media/shaders/<#=shadertoy#>.jpg"/>
+    </div>
 
     <p>See '<#=title#>' live at <a target="_blank" href="https://www.shadertoy.com/view/<#=shadertoy#>">shadertoy.com</a></p>
 

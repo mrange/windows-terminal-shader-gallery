@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "happy-little-windows-terminal",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez", "nmz", "mercury", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Happy little windows terminal",
+    "summary": "Creating shader sometimes the best results come from 'Happy Accidents' as Bob Ross used to say.",
+    "shadertoy": "7tGfW3"
+  }
+}
