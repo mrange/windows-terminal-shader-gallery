@@ -6,8 +6,15 @@ Task("Clean")
     .WithCriteria(c => HasArgument("rebuild"))
     .Does(() =>
 {
-    Information("Cleaning Github Pages: ./docs/");
-    CleanDirectory("./docs/");
+    var paths = new []
+    {
+      "./docs/gen-assets/"
+    };
+    foreach (var path in paths)
+    {
+      Information($"Cleaning: {path}");
+      CleanDirectory(path);
+    }
 });
 
 Task("GithubPages")

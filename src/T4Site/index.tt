@@ -45,7 +45,7 @@
   <body>
     <h1>Windows Terminal Shader Gallery</h1>
 
-    <img width="50%" alt="Windows terminal with a shader background" src="images/wt.jpg"/>
+    <img width="50%" alt="Windows terminal with a shader background" src="assets/wt.jpg"/>
 
     <p>"Everyone" loves cool looking shaders in Windows Terminal!</p>
 
@@ -64,11 +64,12 @@
 
     <h2>Gallery</h2>
 <#
-  var docsPath    = Path.GetFullPath("docs/");
-  var imagesPath  = Path.Combine(docsPath, "images");
-  var galleryPath = Path.GetFullPath("gallery/");
+  var docsPath      = Path.GetFullPath("docs/");
+  var genAssetsPath = Path.Combine(docsPath, "gen-assets");
+  var galleryPath   = Path.GetFullPath("gallery/");
+  var shaderPaths   = Directory.GetDirectories(galleryPath);
+
   Console.WriteLine($"Iterating all shaders in: {galleryPath}");
-  var shaderPaths = Directory.GetDirectories(galleryPath);
 #>
 <# foreach (var shaderPath in shaderPaths) { #>
 <#
@@ -110,7 +111,7 @@
 
   }
 
-  var outputImageDir      = Path.Combine(imagesPath, id);
+  var outputImageDir      = Path.Combine(genAssetsPath, id);
   var outputImagePath     = Path.Combine(outputImageDir, "sample-0.jpg");
 
   Directory.CreateDirectory(outputImageDir);
@@ -120,7 +121,7 @@
 #>
     <h3><#=title#></h3>
 
-    <img width="50%" alt="Windows terminal with '<#=title#>' in the background" src="images/<#=id#>/sample-0.jpg"/>
+    <img width="50%" alt="Windows terminal with '<#=title#>' in the background" src="gen-assets/<#=id#>/sample-0.jpg"/>
 
     <p><i><#=description#></i></p>
 
