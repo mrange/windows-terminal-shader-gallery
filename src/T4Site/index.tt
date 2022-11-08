@@ -64,8 +64,8 @@
 
     <h2>Gallery</h2>
 <#
-  var sitePath    = Path.GetFullPath("site/");
-  var imagesPath  = Path.Combine(sitePath, "images");
+  var docsPath    = Path.GetFullPath("docs/");
+  var imagesPath  = Path.Combine(docsPath, "images");
   var galleryPath = Path.GetFullPath("gallery/");
   Console.WriteLine($"Iterating all shaders in: {galleryPath}");
   var shaderPaths = Directory.GetDirectories(galleryPath);
