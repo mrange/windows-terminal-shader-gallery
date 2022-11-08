@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "thindal",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "BigWings", "mercury", "sam hocevar", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "Thindal",
+    "summary": "I liked the twitch streamer Thindal graphics and wanted to create something inspired by it, also borrowed ideas from BigWing's 'The Universe Within'",
+    "shadertoy": "NldSzr"
+  }
+}
