@@ -63,7 +63,10 @@
 
     <p><span class="glow">Everyone</span> loves cool looking shaders in Windows Terminal!</p>
 
-    <iframe style="width: 100vw; height: 40vw;" frameborder="0" src="https://www.shadertoy.com/embed/DdSGzy?gui=true&t=10&paused=false&muted=true" allowfullscreen></iframe>
+    <div class="center">
+      <iframe style="width: 95vw; height: 40vw;" frameborder="0" src="https://www.shadertoy.com/embed/DdSGzy?gui=true&t=10&paused=false&muted=true" allowfullscreen></iframe>
+    </div>
+
 
     <p>However, finding them and installing them are a bit of a pain so we collected some here in this gallery and developed a tool for you to simplify installing a shader in your terminal.</p>
 
