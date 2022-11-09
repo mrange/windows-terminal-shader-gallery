@@ -118,7 +118,7 @@
       var val = array[i].GetString();
       var prefix = i switch
       {
-        0                   => ""
+        0                   => "*"
       , _ when i == len - 1 => " and "
       , _                   => ", "
       };

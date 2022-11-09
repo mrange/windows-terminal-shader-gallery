@@ -3,7 +3,7 @@
   "id": "thindal",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
-    "authors": ["Mårten Rånge", "BigWings", "mercury", "sam hocevar", "Inigo Quilez"]
+    "authors": ["Mårten Rånge", "Martijn Steinrucken", "mercury", "sam hocevar", "Inigo Quilez"]
   },
   "info": {
     "title": "Thindal",
