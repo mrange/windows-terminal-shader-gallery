@@ -92,7 +92,6 @@
 <# foreach (var shaderPath in shaderPaths) { #>
 <#
   Console.WriteLine($"Processing {shaderPath}");
-  var shaderImagePath     = Path.Combine(shaderPath, "sample-0.jpg");
   var shaderMetaDataPath  = Path.Combine(shaderPath, "metadata.json");
 
   var shaderJson          = File.ReadAllText(shaderMetaDataPath);

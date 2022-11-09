@@ -1,0 +1,106 @@
+[
+{
+  "metadata-version": "1",
+  "id": "another-star-tunnel",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "mercury", "sam hocevar", "Inigo Quilez", "P_Malin", "Pascal Gilcher"]
+  },
+  "info": {
+    "title": "Another star tunnel",
+    "summary": "I grew up with Amiga and Atari ST and star tunnels were an important demo effect at that time so naturally I wanted to recreate the feeling. Inspired by P_Malin's 'Star Tunnel'",
+    "shadertoy": "fsS3Dt"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "happy-little-windows-terminal",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez", "nmz", "mercury", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Happy little windows terminal",
+    "summary": "Creating shader sometimes the best results come from 'Happy Accidents' as Bob Ross used to say.",
+    "shadertoy": "7tGfW3"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "memories-of-green",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL"],
+    "authors": ["Mårten Rånge", "sam hocevar", "nmz", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Memories of green",
+    "summary": "Memories of green is an impression of the hercules screen of old",
+    "shadertoy": "DdSGzy"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "neonwave-sunrise",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez", "nmz", "mercury", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Neonwave sunrise",
+    "summary": "Neonwave sunrise is a shader version of art shared by @shreythecray(Twitter)",
+    "shadertoy": "7dyyRy"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "neonwave-sunset",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez", "nmz", "mercury", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Neonwave sunset",
+    "summary": "Neonwave sunset is an attempt to recreate the common neonwave theme of driving along a road into the sunset.",
+    "shadertoy": "7dtcRj"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "the-decepticons",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "The Decepticons",
+    "summary": "The Decepticons logo with a metallic finish and red background",
+    "shadertoy": "NdjGDK"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "thindal",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "Martijn Steinrucken", "mercury", "sam hocevar", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "Thindal",
+    "summary": "I liked the twitch streamer Thindal graphics and wanted to create something inspired by it, also borrowed ideas from BigWing's 'The Universe Within'",
+    "shadertoy": "NldSzr"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "wcom",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "Martijn Steinrucken", "mercury", "sam hocevar", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "WCOM AB",
+    "summary": "I used to work with @devlead and @tobiasandersson at WCOM AB. Created this WCOM shader for them.",
+    "shadertoy": "ds2Gz3"
+  }
+}
+]

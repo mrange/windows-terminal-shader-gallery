@@ -1,0 +1,27 @@
+<#@ output extension=".json"            #>
+<#@ import namespace="System"           #>
+<#@ import namespace="System.IO"        #>
+<#@ import namespace="System.Linq"      #>
+<#@ import namespace="System.Text"      #>
+<#@ import namespace="System.Text.Json" #>
+[
+<#
+  var galleryPath   = Path.GetFullPath("gallery/");
+  var shaderPaths   = Directory.GetDirectories(galleryPath).OrderBy(p => p).ToArray();
+
+  Console.WriteLine($"Iterating all shaders in: {galleryPath}");
+  var prefix = "";
+#>
+<# foreach (var shaderPath in shaderPaths) { #>
+<#
+  Console.WriteLine($"Processing {shaderPath}");
+  var shaderMetaDataPath  = Path.Combine(shaderPath, "metadata.json");
+
+  var shaderJson          = File.ReadAllText(shaderMetaDataPath);
+  // Checks if valid JSON
+  var shaderDoc           = JsonDocument.Parse(shaderJson);
+#>
+<#=prefix#><#=shaderJson#>
+<# prefix = ","; #>
+<# } #>
+]
