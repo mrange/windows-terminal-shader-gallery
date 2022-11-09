@@ -1,4 +1,6 @@
-﻿namespace WindowsTerminalShaderTool;
+﻿using System.Globalization;
+
+namespace WindowsTerminalShaderTool;
 
 static class Program
 {
@@ -6,6 +8,12 @@ static class Program
 
   public static int Main(string[] args)
   {
+    var ci = CultureInfo.InvariantCulture;
+    CultureInfo.DefaultThreadCurrentCulture   = ci;
+    CultureInfo.DefaultThreadCurrentUICulture = ci;
+    CultureInfo.CurrentCulture                = ci;
+    CultureInfo.CurrentUICulture              = ci;
+
     Application.Init();
 
     try
@@ -32,7 +40,7 @@ static class Program
         .Select(GetTitle)
         .ToArray()
         ;
-      var nav = new ListView(shaderList)
+      var navigation = new ListView(shaderList)
       {
         X             = 0
       , Y             = 0
@@ -50,10 +58,10 @@ static class Program
       , Height    = Dim.Fill()
       , CanFocus  = true
       };
-      allShaders.Add(nav);
+      allShaders.Add(navigation);
       win.Add(allShaders);
 
-      var summary = new Label("N/A");
+      var summary = new Label("");
       var summaryFrame = new FrameView("Description")
       {
         X         = 0
@@ -64,6 +72,15 @@ static class Program
       };
       summaryFrame.Add(summary);
 
+      var authors = new ListView()
+      {
+        X             = 0
+      , Y             = 0
+      , Width         = Dim.Fill()
+      , Height        = Dim.Fill()
+      , AllowsMarking = false
+      , CanFocus      = false
+      };
       var authorsFrame = new FrameView("Authors")
       {
         X         = 0
@@ -72,7 +89,17 @@ static class Program
       , Height    = 6
       , CanFocus  = false
       };
+      authorsFrame.Add(authors);
 
+      var licenses = new ListView()
+      {
+        X             = 0
+      , Y             = 0
+      , Width         = Dim.Fill()
+      , Height        = Dim.Fill()
+      , AllowsMarking = false
+      , CanFocus      = false
+      };
       var licensesFrame = new FrameView("Licenses")
       {
         X         = 24
@@ -81,14 +108,18 @@ static class Program
       , Height    = 6
       , CanFocus  = false
       };
+      licensesFrame.Add(licenses);
 
-      var applyButton = new Button("Apply")
+      var applyButton = new Button("Apply shader")
       {
-        X           = 24
-      , Y           = 12
-      , Width       = Dim.Fill()
-      , Height      = Dim.Fill()
-      , CanFocus    = false
+        X           = 40
+      , Y           = 8
+      };
+
+      var shadertoyLink = new Label("")
+      {
+        X           = 41
+      , Y           = 6
       };
 
       var previewFrame = new FrameView("Preview")
@@ -111,15 +142,24 @@ static class Program
       shader.Add(summaryFrame);
       shader.Add(authorsFrame);
       shader.Add(licensesFrame);
+      shader.Add(shadertoyLink);
+      shader.Add(applyButton);
 
       win.Add(shader);
       win.Add(previewFrame);
 
-      nav.SelectedItemChanged += e =>
+      navigation.SelectedItemChanged += e =>
       {
-        var metadata  = model[e.Item];
-        shader.Title  = GetTitle(metadata);
-        summary.Text  = metadata?.Info?.Summary??"N/A";
+        var metadata        = model[e.Item];
+        shader.Title        = GetTitle(metadata);
+        summary.Text        = metadata?.Info?.Summary??"N/A";
+        shadertoyLink.Text  = $"https://www.shadertoy.com/view/{metadata?.Info?.Shadertoy}";
+        authors.SetSource(metadata?.Legal?.Authors?.ToArray());
+        licenses.SetSource(metadata?.Legal?.LicenseExpressions?.Order()?.ToArray());
+      };
+
+      applyButton.Clicked += () => 
+      {
       };
 
       Application.ExitRunLoopAfterFirstIteration = false;
