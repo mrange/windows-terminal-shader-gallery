@@ -2,14 +2,132 @@
 
 static class Program
 {
+  static string GetTitle(MetadataV1 md) => md?.Info?.Title??md?.Id??"N/A";
+
   public static int Main(string[] args)
   {
     Application.Init();
 
     try
     {
+      var win = new Window("Windows Terminal Shader Gallery") 
+      {
+        X       = 0
+      , Y       = 0
+      , Width   = Dim.Fill()
+      , Height  = Dim.Fill()
+      };
 
+      var info = new Label("Downloading shader metadata...");
+      var dialog = new Dialog("Loading...", 40, 3);
+      dialog.Add(info);
+      win.Add(dialog);
+      Application.ExitRunLoopAfterFirstIteration = true;
+      Application.Run(win);
 
+      var model = ModelLoader.LoadAll();
+      win.Remove(dialog);
+
+      var shaderList = model
+        .Select(GetTitle)
+        .ToArray()
+        ;
+      var nav = new ListView(shaderList)
+      {
+        X             = 0
+      , Y             = 0
+      , Width         = Dim.Fill()
+      , Height        = Dim.Fill()
+      , AllowsMarking = false
+      , CanFocus      = true
+      };
+
+      var allShaders = new FrameView("All shaders")
+      {
+        X         = 0
+      , Y         = 0
+      , Width     = 23
+      , Height    = Dim.Fill()
+      , CanFocus  = true
+      };
+      allShaders.Add(nav);
+      win.Add(allShaders);
+
+      var summary = new Label("N/A");
+      var summaryFrame = new FrameView("Description")
+      {
+        X         = 0
+      , Y         = 0
+      , Width     = Dim.Fill()
+      , Height    = 4
+      , CanFocus  = false
+      };
+      summaryFrame.Add(summary);
+
+      var authorsFrame = new FrameView("Authors")
+      {
+        X         = 0
+      , Y         = 4
+      , Width     = 24
+      , Height    = 6
+      , CanFocus  = false
+      };
+
+      var licensesFrame = new FrameView("Licenses")
+      {
+        X         = 24
+      , Y         = 4
+      , Width     = 16
+      , Height    = 6
+      , CanFocus  = false
+      };
+
+      var applyButton = new Button("Apply")
+      {
+        X           = 24
+      , Y           = 12
+      , Width       = Dim.Fill()
+      , Height      = Dim.Fill()
+      , CanFocus    = false
+      };
+
+      var previewFrame = new FrameView("Preview")
+      {
+        X           = 24
+      , Y           = 12
+      , Width       = Dim.Fill()
+      , Height      = Dim.Fill()
+      , CanFocus    = false
+      };
+
+      var shader = new FrameView("<== Select a shader")
+      {
+        X         = 24
+      , Y         = 0
+      , Width     = Dim.Fill()
+      , Height    = 12
+      , CanFocus  = true
+      };
+      shader.Add(summaryFrame);
+      shader.Add(authorsFrame);
+      shader.Add(licensesFrame);
+
+      win.Add(shader);
+      win.Add(previewFrame);
+
+      nav.SelectedItemChanged += e =>
+      {
+        var metadata  = model[e.Item];
+        shader.Title  = GetTitle(metadata);
+        summary.Text  = metadata?.Info?.Summary??"N/A";
+      };
+
+      Application.ExitRunLoopAfterFirstIteration = false;
+      Application.Run(win);
+
+      Application.Shutdown();
+
+      return 0;
     }
     finally
     {
@@ -19,41 +137,3 @@ static class Program
   }
 }
 
-sealed class VersionDetector
-{
-  [JsonPropertyName("metadata-version")]
-  public string? MetadataVersion { get; set; }
-}
-
-sealed class LegalV1
-{
-  [JsonPropertyName("license-expressions")]
-  public string[]? LicenseExpressions { get; set; }
-
-  [JsonPropertyName("authors")]
-  public string[]? Authors            { get; set; }
-}
-
-sealed class InfoV1
-{
-  [JsonPropertyName("title")]
-  public string? Title                { get; set; }
-
-  [JsonPropertyName("summary")]
-  public string? Summary              { get; set; }
-
-  [JsonPropertyName("shadertoy")]
-  public string? Shadertoy            { get; set; }
-}
-
-sealed record MetadataV1
-{
-  [JsonPropertyName("metadata-version")]
-  public string? MetadataVersion      { get; set; }
-
-  [JsonPropertyName("id")]
-  public string? Id                   { get; set; }
-
-  [JsonPropertyName("legal")]
-  public LegalV1? Legal               { get; set; }
-}
