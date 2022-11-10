@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-
-namespace WindowsTerminalShaderTool;
+﻿namespace WindowsTerminalShaderTool;
 
 sealed record LegalV1
 {
@@ -38,7 +36,7 @@ sealed record MetadataV1
   public InfoV1? Info                             { get; set; }
 }
 
-static class ModelLoader
+static class Models
 {
   static readonly HttpClientHandler _httpClientHandler = new ()
     {
@@ -63,10 +61,52 @@ static class ModelLoader
     , WriteIndented             = true
     };
 
-  static readonly Uri _allMetaDataJsonUri = new("https://raw.githubusercontent.com/mrange/windows-terminal-shader-gallery/main/gallery/all_metadata.json");
-
-  public static RecordArray<MetadataV1> LoadAll()
+  static readonly JsonNodeOptions _jsonNodeOptions = new()
   {
-    return _httpClient.GetFromJsonAsync<RecordArray<MetadataV1>>(_allMetaDataJsonUri).BlockUntilResult();
+    PropertyNameCaseInsensitive = false
+  };
+
+  static readonly JsonWriterOptions _jsonWriterOptions = new()
+  {
+    Encoder         = null
+  , Indented        = true
+  , MaxDepth        = 128
+  , SkipValidation  = false
+  };
+
+  static readonly JsonDocumentOptions _jsonDocOptions = new()
+    {
+    // Converters = ...
+      AllowTrailingCommas       = true
+    , CommentHandling           = JsonCommentHandling.Skip
+    , MaxDepth                  = 128
+    };
+
+  const string _rootMetadataUrl             = "https://raw.githubusercontent.com/mrange/windows-terminal-shader-gallery/main/gallery/";
+  static readonly Uri _allMetadataJsonUri   = new($"{_rootMetadataUrl}/all_metadata.json");
+
+  public static RecordArray<MetadataV1> LoadMetadataFromGithub()
+  {
+    return _httpClient.GetFromJsonAsync<RecordArray<MetadataV1>>(_allMetadataJsonUri, _jsonOptions).BlockUntilResult();
   }
+
+  public static byte[] LoadFragment0FromGithub(MetadataV1 metadata)
+  {
+    var uri = new Uri($"{_rootMetadataUrl}/{metadata.Id}/fragment-0.hlsl");
+    return _httpClient.GetByteArrayAsync(uri).BlockUntilResult();
+  }
+
+  public static JsonNode? LoadSettings(string settingsPath)
+  {
+    using var stream = File.OpenRead(settingsPath);
+    return JsonNode.Parse(stream, _jsonNodeOptions, _jsonDocOptions);
+  }
+
+  public static void SaveSettings(string settingsPath, JsonNode root)
+  {
+    using var stream = File.Create(settingsPath);
+    using var writer = new Utf8JsonWriter(stream, _jsonWriterOptions);
+    root.WriteTo(writer, _jsonOptions);
+  }
+
 }

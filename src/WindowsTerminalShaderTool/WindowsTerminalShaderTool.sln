@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33103.201
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsTerminalShaderTool", "WindowsTerminalShaderTool.csproj", "{246EA81A-D9CE-4DA7-85D3-A6B45A148C00}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{246EA81A-D9CE-4DA7-85D3-A6B45A148C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{246EA81A-D9CE-4DA7-85D3-A6B45A148C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{246EA81A-D9CE-4DA7-85D3-A6B45A148C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{246EA81A-D9CE-4DA7-85D3-A6B45A148C00}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33D9B80E-EDB4-4723-A055-88A99C33B069}
+	EndGlobalSection
+EndGlobal
