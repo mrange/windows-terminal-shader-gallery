@@ -122,6 +122,26 @@ static class Program
       , Y           = 6
       };
 
+      var black   = new Terminal.Gui.Attribute(0, Color.Black, Color.Black);
+      var blackScheme = new ColorScheme
+      {
+        Disabled  = black
+      , Focus     = black
+      , HotFocus  = black
+      , HotNormal = black
+      , Normal    = black
+      };
+
+      var preview = new Label(" ")
+      {
+        X           = 0
+      , Y           = 0
+      , Width       = Dim.Fill()
+      , Height      = Dim.Fill()
+      , CanFocus    = false
+      , ColorScheme = blackScheme
+      };
+
       var previewFrame = new FrameView("Preview")
       {
         X           = 24
@@ -130,8 +150,9 @@ static class Program
       , Height      = Dim.Fill()
       , CanFocus    = false
       };
+      previewFrame.Add(preview);
 
-      var shader = new FrameView("<== Select a shader")
+      var shader = new FrameView("No shader selected")
       {
         X         = 24
       , Y         = 0
@@ -162,6 +183,13 @@ static class Program
       {
       };
 
+      if (model.Length > 0)
+      {
+        navigation.SelectedItem = 0;
+      }
+      win.FocusFirst();
+
+
       Application.ExitRunLoopAfterFirstIteration = false;
       Application.Run(win);
 
@@ -171,7 +199,7 @@ static class Program
     }
     finally
     {
-        Application.Shutdown();
+      Application.Shutdown();
     }
 
   }
