@@ -1,34 +1,134 @@
 #nullable enable
+#addin nuget:?package=Cake.Git&version=2.0.0
 
-var target = Argument("target", "All");
+using System.Text.RegularExpressions;
+
+const string projDir    = "./src/WindowsTerminalShaderTool";
+const string projPath   = "./src/WindowsTerminalShaderTool/WindowsTerminalShaderTool.csproj";
+var target          = Argument("target", "Run");
+var configuration   = Argument("configuration", "Release");
+
+var nugetApi      = "https://api.nuget.org/v3/index.json";
+var nugetApiKey   = EnvironmentVariable("NUGET_API_KEY");
+
+record BuildData(
+        string? Version
+    );
+
+Setup(ctx =>
+    {
+        var tip = GitLogTip(".");
+        var tags = GitTags(".", true);
+        var tipTag = tags
+            .FirstOrDefault(tag => tag.Target.Sha == tip.Sha)
+            ;
+        string? version = null;
+
+        if (tipTag is not null)
+        {
+            var tagName = tipTag.FriendlyName;
+            var match   = Regex.Match(tagName, @"^v(?<version>\d+\.\d+\.\d+)$");
+            if (match.Success)
+            {
+                version = match.Groups["version"].Value;
+                Information($"Tip is tagged with version: {version}");
+            }
+            else
+            {
+                Warning($"Tip is tagged, but the tag doesn't match the version schema: {tagName}");
+            }
+        }
+        else
+        {
+            Information("Tip is not tagged with version");
+        }
+
+        return new BuildData(version);
+    });
+
 
 Task("Clean")
     .WithCriteria(c => HasArgument("rebuild"))
     .Does(() =>
 {
-    Information("Cleaning tool: ./src/WindowsTerminalShaderTool");
-    DotNetClean("./src/WindowsTerminalShaderTool/WindowsTerminalShaderTool.csproj");
+    Information($"Cleaning tool: {projDir}");
+    DotNetClean(projPath);
 });
 
-Task("Build")
+Task("Restore")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    Information("Building tool: ./src/WindowsTerminalShaderTool");
-    DotNetBuild("./src/WindowsTerminalShaderTool/WindowsTerminalShaderTool.csproj");
+    Information($"Restoring tool: {projDir}");
+    DotNetRestore(
+            projPath
+        ,   new()
+        {
+            LockedMode      = true
+        });
 });
+
+Task("Build")
+    .IsDependentOn("Restore")
+    .Does(() =>
+{
+    Information($"Building tool: {projDir}");
+    DotNetBuild(
+            projPath
+        ,   new()
+        {
+            Configuration   = configuration
+        ,   NoRestore       = true
+        });
+});
+
+Task("Pack")
+    .IsDependentOn("Build")
+    .Does<BuildData>((ctx, bd) =>
+{
+    Information($"Packing tool: {projDir}");
+    var bs = new DotNetMSBuildSettings()
+        .SetVersion(bd.Version??"0.0.1")
+        ;
+
+    DotNetPack(projPath, new()
+    {
+        Configuration   = configuration
+    ,   NoBuild         = true
+    ,   NoRestore       = true
+    ,   MSBuildSettings = bs
+    });
+});
+
+Task("PublishToNuGet")
+    .WithCriteria<BuildData>((ctx, bd) => bd.Version is not null)
+    .IsDependentOn("Pack")
+    .Does<BuildData>((ctx, bd) =>
+{
+    Information($"Publishing tool to nuget: {projDir}");
+    var packPath = $"{projDir}/nupkg/WindowsTerminalShaderTool.{bd.Version}.nupkg";
+    Information($"Publishing package: {packPath}");
+    DotNetNuGetPush(packPath, new()
+    {
+        ApiKey = nugetApiKey
+    ,   Source = nugetApi
+    });
+});
+
 
 Task("Run")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    Information("Running tool: ./src/WindowsTerminalShaderTool");
+    Information($"Running tool: {projDir}");
     DotNetRun(
-            "./src/WindowsTerminalShaderTool/WindowsTerminalShaderTool.csproj"
+            projPath
         ,   new DotNetRunSettings ()
         {
             // Already built by Build step
-            NoBuild = true
+            NoBuild     = true
+            // Already restored by Restore step
+        ,   NoRestore   = true
         });
 });
 
@@ -49,7 +149,7 @@ Task("GithubPages")
 });
 
 Task("All")
-    .IsDependentOn("Build")
+    .IsDependentOn("Pack")
     .IsDependentOn("AllMetaData")
     .IsDependentOn("GithubPages")
     ;

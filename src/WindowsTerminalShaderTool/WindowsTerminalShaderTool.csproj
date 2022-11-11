@@ -6,10 +6,41 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <PackageId>WindowsTerminalShaderTool</PackageId>
+    <Copyright>Copyright (c) Mårten Rånge</Copyright>
+    <Authors>Mårten Rånge</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/mrange/windows-terminal-shader-gallery</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Tool;Shader;WindowsTerminal</PackageTags>
+    <Title>Tool to set shader backgrounds in Windows Terminal</Title>
+    <Description>
+      This is a tool that allows users to download shaders from a gallery
+      of shaders and apply it as a background in Windows Terminal.
+    </Description>
+    <!-- Pack options -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>wt-shader-tool</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/mrange/windows-terminal-shader-gallery</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Terminal.Gui" Version="1.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\assets\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

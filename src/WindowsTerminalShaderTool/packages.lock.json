@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net7.0": {
+      "Terminal.Gui": {
+        "type": "Direct",
+        "requested": "[1.*, )",
+        "resolved": "1.8.2",
+        "contentHash": "/xdSVuf/BSfsu5ODQZAw5e92GCJWika4P8Wb261ENxJWFgDC3XzpS+HLgJgvH3mdiMTLoC0r7yvLoFUmYM7zpQ==",
+        "dependencies": {
+          "NStack.Core": "1.0.3"
+        }
+      },
+      "NStack.Core": {
+        "type": "Transitive",
+        "resolved": "1.0.3",
+        "contentHash": "CvduI58J+1dXFbPfPrBBhhfCexllRfZCTNRU4Ml+ZgYjJBPsh+8FlfKhj7XRDy2Pqn0pybofJIPu46gW30rqdA==",
+        "dependencies": {
+          "System.ValueTuple": "4.5.0"
+        }
+      },
+      "System.ValueTuple": {
+        "type": "Transitive",
+        "resolved": "4.5.0",
+        "contentHash": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ=="
+      }
+    }
+  }
+}
