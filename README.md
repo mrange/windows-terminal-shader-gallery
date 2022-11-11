@@ -8,6 +8,8 @@ See the [project's github pages](https://mrange.github.io/windows-terminal-shade
 ```bash
 # Install tools
 dotnet tool restore
-# Build github pages
-dotnet cake -- --target GithubPages
+# Build site and tool
+dotnet cake -- --target All
+# Run windows terminal shader tool
+dotnet cake -- --target Run
 ```
