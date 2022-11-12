@@ -94,7 +94,12 @@ static class Models
 
   public static RecordArray<MetadataV1> LoadMetadataFromGithub()
   {
-    return _httpClient.GetFromJsonAsync<RecordArray<MetadataV1>>(_allMetadataJsonUri, _jsonOptions).BlockUntilResult();
+    return _httpClient
+      .GetFromJsonAsync<RecordArray<MetadataV1>>(_allMetadataJsonUri, _jsonOptions)
+      .BlockUntilResult()
+      .OrderBy(md => md.Id??"")
+      .ToRecordArray()
+      ;
   }
 
   public static byte[] LoadFragment0FromGithub(MetadataV1 metadata)
