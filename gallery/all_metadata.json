@@ -40,6 +40,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "face-in-the-clouds",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "nmz", "Matt Taylor", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "Face in the clouds",
+    "summary": "Using warped FBM to create a face in the clouds that stares into your soul.",
+    "shadertoy": "sdKcDz"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "glowing-torus",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
