@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "dreams-of-amber",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "Evilryu", "sam hocevar", "Inigo Quilez", "nmz", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Dreams of amber",
+    "summary": "Dreams of amber is an impression of amber screens of old.",
+    "shadertoy": "dsj3W3"
+  }
+}
