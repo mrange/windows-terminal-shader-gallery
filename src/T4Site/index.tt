@@ -73,6 +73,9 @@
     <h2>Tool installation</h2>
 
     <pre class="glow">
+# WindowsTerminalShaderTool requires
+#  1. Windows Terminal
+#  2. .NET 7.0
 # Install the WindowsTerminalShaderTool
 > dotnet tool install -g WindowsTerminalShaderTool
 # List all shaders in the gallery
