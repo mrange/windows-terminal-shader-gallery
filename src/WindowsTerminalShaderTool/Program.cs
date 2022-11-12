@@ -1,4 +1,11 @@
-﻿namespace WindowsTerminalShaderTool;
+﻿/*
+Copyright 2022 Mårten Rånge
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+namespace WindowsTerminalShaderTool;
 
 class OopsException : Exception
 {
@@ -11,18 +18,38 @@ static class Program
 {
   static string GetTitle(MetadataV1 md) => md?.Info?.Title??md?.Id??"N/A";
 
-  static void Error(string msg)
+  static void Print(ConsoleColor color, string msg)
   {
     var cc = Console.ForegroundColor;
     try
     {
-      Console.ForegroundColor = ConsoleColor.Red;
+      Console.ForegroundColor = color;
       Console.WriteLine(msg);
     }
     finally
     {
       Console.ForegroundColor = cc;
     }
+  }
+
+  static void Info(string msg)
+  {
+    Print(ConsoleColor.Gray, msg);
+  }
+
+  static void Hilight(string msg)
+  {
+    Print(ConsoleColor.Cyan, msg);
+  }
+
+  static void Good(string msg)
+  {
+    Print(ConsoleColor.Green, msg);
+  }
+
+  static void Fail(string msg)
+  {
+    Print(ConsoleColor.Red, msg);
   }
 
   static readonly string _tempPath        = Path.GetTempPath();
@@ -81,11 +108,42 @@ static class Program
     Models.SaveSettings(settingsPath, root);
   }
 
-  static void RunApp(string settingsPath, string[] args)
+  static void ListAllShaders()
   {
-    var now = DateOnly.FromDateTime(DateTime.Now);
-    var backupSettingsPath  = settingsPath + $".{now.Year:D4}-{now.Month:D2}-{now.Day:D2}.backup";
+    Hilight("Listing all shaders in gallery");
 
+    Console.WriteLine($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
+    var metadatas = Models.LoadMetadataFromGithub();
+    const string nulls = "Unknown";
+    foreach (var metadata in metadatas)
+    {
+      Hilight(metadata?.Info?.Title??nulls);
+      Info($"  id   = {metadata?.Id??nulls}");
+      Info($"  info = {metadata?.Info?.Summary??nulls}");
+    }
+  }
+  static void DownloadAndApplyShader(string settingsPath, string backupSettingsPath, string installShaderId)
+  {
+    Hilight($"Downloading and installing shader: {installShaderId}");
+
+    Console.WriteLine($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
+    var metadatas = Models.LoadMetadataFromGithub();
+    var metadata = metadatas
+      .FirstOrDefault(md => md?.Id?.Equals(installShaderId, StringComparison.OrdinalIgnoreCase)??false)
+      ;
+    if (metadata is null)
+    {
+      throw new OopsException($"Didn't find shader with id '{installShaderId}', did you type it correctly?");
+    }
+
+    Info("Downloading and installing shader");
+    ApplyShader(settingsPath, backupSettingsPath, metadata);
+
+    Good("We are done!");
+  }
+
+  static void ShowFrontEnd(string settingsPath, string backupSettingsPath)
+  {
     Application.Init();
 
     try
@@ -313,7 +371,6 @@ static class Program
       }
       win.FocusFirst();
 
-
       Application.ExitRunLoopAfterFirstIteration = false;
       Application.Run(win);
     }
@@ -323,18 +380,10 @@ static class Program
     }
   }
 
-
-
-  public static int Main(string[] args)
+  static void RunApp(string? installShaderId, bool? listAllShaders)
   {
     try
     {
-      var ci = CultureInfo.InvariantCulture;
-      CultureInfo.DefaultThreadCurrentCulture   = ci;
-      CultureInfo.DefaultThreadCurrentUICulture = ci;
-      CultureInfo.CurrentCulture                = ci;
-      CultureInfo.CurrentUICulture              = ci;
-
       var localAppDataPath      = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
       var packagePath           = Path.Combine(localAppDataPath, "Packages");
       var windowsTerminalPaths  = Directory.GetDirectories(packagePath, "Microsoft.WindowsTerminal_*");
@@ -357,22 +406,56 @@ static class Program
         throw new OopsException("We didn't find a settings file for Windows Terminal. Please launch Windows Terminal and save your settings.");
       }
 
-      RunApp(settingsPath, args);
+      var now = DateOnly.FromDateTime(DateTime.Now);
+      var backupSettingsPath  = settingsPath + $".{now.Year:D4}-{now.Month:D2}-{now.Day:D2}.backup";
 
-      return 0;
-
+      if (listAllShaders??false)
+      {
+        ListAllShaders();
+      }
+      else if (installShaderId is not null)
+      {
+        DownloadAndApplyShader(settingsPath, backupSettingsPath, installShaderId);
+      }
+      else
+      {
+        ShowFrontEnd(settingsPath, backupSettingsPath);
+      }
     }
     catch(OopsException oops)
     {
-      Error(oops.Message??"We crashed but we don't know why!");
-      return 98;
+      Fail(oops.Message??"We crashed but we don't know why!");
     }
     catch(Exception exc)
     {
-      Error($"We ran into an unknown issue and crashed, perhaps you should create an issue here: https://github.com/mrange/windows-terminal-shader-gallery/issues\nDetailed information to follow\n{exc}");
-      return 99;
+      Fail($"We ran into an unknown issue and crashed, perhaps you should create an issue here: https://github.com/mrange/windows-terminal-shader-gallery/issues\nDetailed information to follow\n{exc}");
     }
+  }
 
+  public static int Main(string[] args)
+  {
+    var ci = CultureInfo.InvariantCulture;
+    CultureInfo.DefaultThreadCurrentCulture   = ci;
+    CultureInfo.DefaultThreadCurrentUICulture = ci;
+    CultureInfo.CurrentCulture                = ci;
+    CultureInfo.CurrentUICulture              = ci;
+
+    var installOption = new Option<string?>(
+        aliases:      new [] {"--install", "-i" }
+      , description:  "The id of the shader to install"
+      );
+
+    var listOption    = new Option<bool?>(
+        aliases:      new [] {"--list", "-l" }
+      , description:  "List all shaders in gallery"
+      );
+
+    var rootCommand = new RootCommand("Installs shaders from Windows Terminal Shader Gallery into Windows Terminal");
+    rootCommand.AddOption(installOption);
+    rootCommand.AddOption(listOption);
+    rootCommand.SetHandler(RunApp, installOption, listOption);
+
+    return rootCommand.Invoke(args);
   }
 }
 
