@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "complex-atanh-ftw",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "mla", "mercury", "sam hocevar", "Pascal Gilcher"]
+  },
+  "info": {
+    "title": "Complex atanh math FTW",
+    "summary": "Based on the very cool shader 'Complex Atanh' by mla.",
+    "shadertoy": "tsBXRW"
+  }
+}
