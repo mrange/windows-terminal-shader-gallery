@@ -209,8 +209,8 @@ vec3 effect(vec2 p, vec2 pp) {
   float aa = 2.0/RESOLUTION.y;
 
   float d = df(p);
-  const float hoff = 0.67;
-  const float inte = 0.75;
+  const float hoff = 0.685;
+  const float inte = 0.85;
   const vec3 bcol0 = HSV2RGB(vec3(0.50+hoff, 0.85, inte*0.85));
   const vec3 bcol1 = HSV2RGB(vec3(0.33+hoff, 0.85, inte*0.025));
   const vec3 bcol2 = HSV2RGB(vec3(0.45+hoff, 0.85, inte*0.85));
