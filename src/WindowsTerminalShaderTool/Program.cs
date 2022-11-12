@@ -66,9 +66,10 @@ static class Program
     {
       var hlslBits = Models.LoadFragment0FromGithub(metadata);
 
-      hlslPath     = Path.Combine(_downloadsPath, $"{metadata.Id}.hlsl");
+      var hlslDir  = Path.Combine(_downloadsPath, $"{metadata.Id}");
+      hlslPath     = Path.Combine(hlslDir, "fragment-0.hlsl");
 
-      Directory.CreateDirectory(_downloadsPath);
+      Directory.CreateDirectory(hlslDir);
       File.WriteAllBytes(hlslPath, hlslBits);
     }
 
