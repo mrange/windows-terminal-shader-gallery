@@ -148,10 +148,14 @@ Task("GithubPages")
     DotNetTool(".", "t4", "-o ./docs/index.html ./src/T4Site/index.tt");
 });
 
-Task("All")
-    .IsDependentOn("Pack")
+Task("Site")
     .IsDependentOn("AllMetaData")
     .IsDependentOn("GithubPages")
+    ;
+
+Task("All")
+    .IsDependentOn("Pack")
+    .IsDependentOn("Site")
     ;
 
 RunTarget(target);
