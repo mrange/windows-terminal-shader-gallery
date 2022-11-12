@@ -134,7 +134,7 @@
   "id": "nested-transparent-sphere4",
   "legal": {
     "license-expressions": ["CC0-1.0", "WTFPL", "MIT"],
-    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez"]
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez", "nmz", "Matt Taylor"]
   },
   "info": {
     "title": "Nested transparent sphere4",
