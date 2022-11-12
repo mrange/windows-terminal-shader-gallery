@@ -27,6 +27,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "glowing-torus",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "mercury", "sam hocevar", "nmz", "Matt Taylor", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "Glowing torus",
+    "summary": "Toruses are cool and neat and this based on a popular shader I created.",
+    "shadertoy": "sl3Bz7"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "happy-little-windows-terminal",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
