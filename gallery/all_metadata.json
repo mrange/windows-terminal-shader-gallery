@@ -131,6 +131,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "nested-transparent-sphere4",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "Nested transparent sphere4",
+    "summary": "A sphere4 is a boxy looking 'sphere'. The normals are nicer than on a normal box and gives nice reflection and refraction effects.",
+    "shadertoy": "7tGcDG"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "the-decepticons",
   "legal": {
     "license-expressions": ["CC0-1.0", "WTFPL", "MIT"],
