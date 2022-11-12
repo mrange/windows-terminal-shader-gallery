@@ -213,7 +213,8 @@ vec3 effect(vec2 p, vec2 pp) {
   const float inte = 0.75;
   const vec3 bcol0 = HSV2RGB(vec3(0.50+hoff, 0.85, inte*0.85));
   const vec3 bcol1 = HSV2RGB(vec3(0.33+hoff, 0.85, inte*0.025));
-  vec3 col = 0.1*bcol0;
+  const vec3 bcol2 = HSV2RGB(vec3(0.45+hoff, 0.85, inte*0.85));
+  vec3 col = 0.1*bcol2;
   col += bcol1/sqrt(abs(d));
   col += bcol0*smoothstep(aa, -aa, (d-0.001));
 
