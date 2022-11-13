@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "night-sky",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["z0rg"]
+  },
+  "info": {
+    "title": "Night sky",
+    "summary": "A simple  night sky made for a friend.",
+    "shadertoy": "cs2GDt"
+  }
+}
