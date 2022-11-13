@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "pretty-sweet-colors",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "nmz"]
+  },
+  "info": {
+    "title": "Pretty sweet colors",
+    "summary": "I watched a YT for on .NET, didn't remember anything except I thought the colors and shapes were pretty sweet around 0:09 in the video. So improvised a shader around it.",
+    "shadertoy": "NlXBDn"
+  }
+}
