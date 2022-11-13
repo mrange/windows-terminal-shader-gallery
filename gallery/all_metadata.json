@@ -105,6 +105,32 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "lonely-fox",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["z0rg"]
+  },
+  "info": {
+    "title": "Lonely fox",
+    "summary": "A simple flat shaded fox I made when I felt inspired.",
+    "shadertoy": "NdlGzs"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "lost-planet",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["z0rg", "autostrip"]
+  },
+  "info": {
+    "title": "Lost planet",
+    "summary": "A simple shader reproduction of my friend autostrip's work https://www.instagram.com/p/CV-tjLSIgMu/. It was done during Genuary 2022.",
+    "shadertoy": "NlGSWd"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "memories-of-green",
   "legal": {
     "license-expressions": ["CC0-1.0", "WTFPL"],
@@ -153,6 +179,32 @@
     "title": "Nested transparent sphere4",
     "summary": "A sphere4 is a boxy looking 'sphere'. The normals are nicer than on a normal box and gives nice reflection and refraction effects.",
     "shadertoy": "7tGcDG"
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "night-sky",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["z0rg"]
+  },
+  "info": {
+    "title": "Night sky",
+    "summary": "A simple  night sky made for a friend.",
+    "shadertoy": ""
+  }
+}
+,{
+  "metadata-version": "1",
+  "id": "solar-system",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["z0rg"]
+  },
+  "info": {
+    "title": "Solar system",
+    "summary": "A simple solar system landscape.",
+    "shadertoy": "7ss3zX"
   }
 }
 ,{
