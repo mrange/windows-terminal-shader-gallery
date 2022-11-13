@@ -127,8 +127,8 @@ float height(vec2 p) {
   const float aa = -0.35;
   const mat2  pp = 0.9*(1.0/aa)*ROT(1.0);
 
-  float tm = TIME*0.00075;
-  p += 50.0*vec2(cos(tm), sin(tm));
+  float tm = TIME*0.00025;
+  p += 100.0*vec2(cos(tm), sin(tm));
   float h = 0.0;
   float a = 1.0;
   float d = 0.0;
@@ -221,15 +221,8 @@ float4 ps_main(float4 pos : SV_POSITION, float2 tex : TEXCOORD) : SV_TARGET
   vec4 fg = shaderTexture.Sample(samplerState, q);
   vec4 sh = shaderTexture.Sample(samplerState, q-2.0*unit2/RESOLUTION.xy);
 
-//  float ff = smoothstep(2.0, 0.5, length(pp));
-#if defined(VIGINETTE)
-  float ff = smoothstep(2.0, 0.5, length(pp));
-  col = mix(col, 0.0*unit3, sh.w*ff);
-  col = mix(col, fg.xyz, fg.w*ff);
-#else
   col = mix(col, 0.0*unit3, sh.w);
   col = mix(col, fg.xyz, fg.w);
-#endif
 
   return vec4(col, 1.0);
 }
