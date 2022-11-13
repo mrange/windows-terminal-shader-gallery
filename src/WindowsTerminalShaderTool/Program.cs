@@ -5,6 +5,7 @@ Redistribution and use in source and binary forms, with or without modification,
 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 namespace WindowsTerminalShaderTool;
 
 class OopsException : Exception
@@ -30,6 +31,12 @@ static class Program
     {
       Console.ForegroundColor = cc;
     }
+  }
+
+  [Conditional("DEBUG")]
+  static void Debug(string msg)
+  {
+    Print(ConsoleColor.DarkMagenta, msg);
   }
 
   static void Info(string msg)
@@ -145,6 +152,7 @@ static class Program
 
   static void ShowFrontEnd(string settingsPath, string backupSettingsPath)
   {
+    var sw = Stopwatch.StartNew();
     Application.Init();
 
     try
@@ -158,11 +166,15 @@ static class Program
       };
 
       var info = new Label("Downloading shader metadata...\n(If it seems to get stuck here hit enter)");
-      var dialog = new Dialog("Loading...", 40, 4);
+      var dialog = new Dialog("Loading...", 48, 4);
       dialog.Add(info);
       win.Add(dialog);
+
+      Debug($"Starting app: {sw.ElapsedMilliseconds}ms");
       Application.ExitRunLoopAfterFirstIteration = true;
       Application.Run(win);
+
+      Debug($"Loading model... {sw.ElapsedMilliseconds}ms");
 
       var noShader = new MetadataV1()
       {
@@ -179,6 +191,8 @@ static class Program
         .Prepend(noShader)
         .ToArray()
         ;
+
+      Debug($"Setting up view: {sw.ElapsedMilliseconds}ms");
       win.Remove(dialog);
 
       var shaderList = model
@@ -372,6 +386,7 @@ static class Program
       }
       win.FocusFirst();
 
+      Debug($"Starting main loop: {sw.ElapsedMilliseconds}ms");
       Application.ExitRunLoopAfterFirstIteration = false;
       Application.Run(win);
     }

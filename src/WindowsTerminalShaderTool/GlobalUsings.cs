@@ -7,12 +7,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 */
 global using System.Collections;
 global using System.CommandLine;
+global using System.Diagnostics;
 global using System.Globalization;
-global using System.Net;
-global using System.Text;
 global using System.Net.Http.Json;
-global using System.Text.Json;
+global using System.Net;
 global using System.Text.Json.Nodes;
 global using System.Text.Json.Serialization;
+global using System.Text.Json;
+global using System.Text;
 global using Terminal.Gui;
 
