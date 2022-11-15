@@ -6,7 +6,7 @@
     "authors": ["Mårten Rånge"]
   },
   "info": {
-    "title": "c64-truchet",
+    "title": "C64 truchet pattern",
     "summary": "The classic C64 truchet pattern: 10 PRINT CHR$(205.5+RND(1)); : GOTO 10",
     "shadertoy": "ftGSWz"
   }
