@@ -47,8 +47,6 @@ static const vec4 unit4 = vec4(1.0, 1.0, 1.0, 1.0);
 
 // --------------------
 
-#define TIME        time
-#define RESOLUTION  resolution
 #define PI          3.141592654
 #define TAU         (2.0*PI)
 
