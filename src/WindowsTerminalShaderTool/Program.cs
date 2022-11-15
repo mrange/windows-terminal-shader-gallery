@@ -71,15 +71,18 @@ static class Program
     string? hlslPath = null;
     if (metadata is not null)
     {
+      Info($"Downloading shader from github: {metadata.Id}");
       var hlslBits = Models.LoadFragment0FromGithub(metadata);
 
       var hlslDir  = Path.Combine(_downloadsPath, $"{metadata.Id}");
       hlslPath     = Path.Combine(hlslDir, "fragment-0.hlsl");
 
+      Info($"Writing shader to: {hlslDir}");
       Directory.CreateDirectory(hlslDir);
       File.WriteAllBytes(hlslPath, hlslBits);
     }
 
+    Info($"Loading Windows Terminal settings from: {settingsPath}");
     var root = Models.LoadSettings(settingsPath);
     if (root is null)
     {
@@ -111,8 +114,10 @@ static class Program
 
     if (!File.Exists(backupSettingsPath))
     {
+      Info($"Taking backup of Windows Terminal settings file from: {settingsPath}, to: {backupSettingsPath}");
       File.Copy(settingsPath, backupSettingsPath, overwrite: true);
     }
+    Info($"Saving Windows Terminal settings to: {settingsPath}");
     Models.SaveSettings(settingsPath, root);
   }
 
@@ -120,7 +125,7 @@ static class Program
   {
     Hilight("Listing all shaders in gallery");
 
-    Console.WriteLine($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
+    Info($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
     var metadatas = Models.LoadMetadataFromGithub();
     const string nulls = "Unknown";
     foreach (var metadata in metadatas)
@@ -134,7 +139,7 @@ static class Program
   {
     Hilight($"Downloading and installing shader: {installShaderId}");
 
-    Console.WriteLine($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
+    Info($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
     var metadatas = Models.LoadMetadataFromGithub();
     var metadata = metadatas
       .FirstOrDefault(md => md?.Id?.Equals(installShaderId, StringComparison.OrdinalIgnoreCase)??false)
@@ -144,7 +149,6 @@ static class Program
       throw new OopsException($"Didn't find shader with id '{installShaderId}', did you type it correctly?");
     }
 
-    Info("Downloading and installing shader");
     ApplyShader(settingsPath, backupSettingsPath, metadata);
 
     Good("We are done!");
@@ -152,12 +156,15 @@ static class Program
 
   static void ShowFrontEnd(string settingsPath, string backupSettingsPath)
   {
+    Hilight($"Starting front end");
+
     var sw = Stopwatch.StartNew();
     Application.Init();
 
+
     try
     {
-      var win = new Window("Windows Terminal Shader Gallery (hit Ctrl-Q to quit)") 
+      var win = new Window("Windows Terminal Shader Gallery (hit Ctrl-Q to quit)")
       {
         X       = 0
       , Y       = 0
@@ -170,11 +177,11 @@ static class Program
       dialog.Add(info);
       win.Add(dialog);
 
-      Debug($"Starting app: {sw.ElapsedMilliseconds}ms");
+      Info($"Show loading screen: {sw.ElapsedMilliseconds}ms");
       Application.ExitRunLoopAfterFirstIteration = true;
       Application.Run(win);
 
-      Debug($"Loading model... {sw.ElapsedMilliseconds}ms");
+      Info($"Loading model: {sw.ElapsedMilliseconds}ms");
 
       var noShader = new MetadataV1()
       {
@@ -192,7 +199,7 @@ static class Program
         .ToArray()
         ;
 
-      Debug($"Setting up view: {sw.ElapsedMilliseconds}ms");
+      Info($"Setting up main screen: {sw.ElapsedMilliseconds}ms");
       win.Remove(dialog);
 
       var shaderList = model
@@ -343,7 +350,7 @@ static class Program
         var shaderToy       = metadata.Info?.Shadertoy;
         shader.Title        = GetTitle(metadata);
         summary.Text        = metadata.Info?.Summary??"N/A";
-        shadertoyLink.Text  = 
+        shadertoyLink.Text  =
           shaderToy is not null
           ? $"https://www.shadertoy.com/view/{shaderToy}"
           : ""
@@ -363,6 +370,7 @@ static class Program
 
         var effectiveMetaData = metadata.Id == noShader.Id ? null : metadata;
 
+        Hilight($"Downloading and installing shader: {effectiveMetaData?.Id??"no-shader"}");
         ApplyShader(settingsPath, backupSettingsPath, effectiveMetaData);
       }
 
@@ -375,7 +383,7 @@ static class Program
         }
       };
 
-      applyButton.Clicked += () => 
+      applyButton.Clicked += () =>
       {
         ApplyCurrentShader();
       };
@@ -386,7 +394,7 @@ static class Program
       }
       win.FocusFirst();
 
-      Debug($"Starting main loop: {sw.ElapsedMilliseconds}ms");
+      Info($"Starting main screen: {sw.ElapsedMilliseconds}ms");
       Application.ExitRunLoopAfterFirstIteration = false;
       Application.Run(win);
     }
