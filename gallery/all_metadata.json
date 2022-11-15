@@ -14,6 +14,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "c64-truchet",
+  "legal": {
+    "license-expressions": ["CC0-1.0"],
+    "authors": ["Mårten Rånge"]
+  },
+  "info": {
+    "title": "c64-truchet",
+    "summary": "The classic C64 truchet pattern: 10 PRINT CHR$(205.5+RND(1)); : GOTO 10",
+    "shadertoy": "ftGSWz"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "complex-atanh-ftw",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "WTFPL", "MIT"],
