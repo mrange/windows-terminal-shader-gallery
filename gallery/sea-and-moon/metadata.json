@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "sea-and-moon",
+  "legal": {
+    "license-expressions": ["CC0-1.0"],
+    "authors": ["Mårten Rånge"]
+  },
+  "info": {
+    "title": "Sea and moon",
+    "summary": "Bright moon over dark waves. Hopefully works fine on slower machines",
+    "shadertoy": "csfXzN"
+  }
+}
