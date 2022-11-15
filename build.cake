@@ -126,9 +126,10 @@ Task("Run")
         ,   new DotNetRunSettings ()
         {
             // Already built by Build step
-            NoBuild     = true
+            NoBuild         = true
             // Already restored by Restore step
-        ,   NoRestore   = true
+        ,   NoRestore       = true
+        ,   Configuration   = configuration
         });
 });
 
