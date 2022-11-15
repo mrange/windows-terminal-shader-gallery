@@ -33,10 +33,14 @@ static class Program
     }
   }
 
-  [Conditional("DEBUG")]
-  static void Debug(string msg)
+  static bool VerboseOn = false;
+
+  static void Verbose(string msg)
   {
-    Print(ConsoleColor.DarkMagenta, msg);
+    if (VerboseOn)
+    {
+      Print(ConsoleColor.Magenta, msg);
+    }
   }
 
   static void Info(string msg)
@@ -71,18 +75,18 @@ static class Program
     string? hlslPath = null;
     if (metadata is not null)
     {
-      Info($"Downloading shader from github: {metadata.Id}");
+      Verbose($"Downloading shader from github: {metadata.Id}");
       var hlslBits = Models.LoadFragment0FromGithub(metadata);
 
       var hlslDir  = Path.Combine(_downloadsPath, $"{metadata.Id}");
       hlslPath     = Path.Combine(hlslDir, "fragment-0.hlsl");
 
-      Info($"Writing shader to: {hlslDir}");
+      Verbose($"Writing shader to: {hlslDir}");
       Directory.CreateDirectory(hlslDir);
       File.WriteAllBytes(hlslPath, hlslBits);
     }
 
-    Info($"Loading Windows Terminal settings from: {settingsPath}");
+    Verbose($"Loading Windows Terminal settings from: {settingsPath}");
     var root = Models.LoadSettings(settingsPath);
     if (root is null)
     {
@@ -114,10 +118,10 @@ static class Program
 
     if (!File.Exists(backupSettingsPath))
     {
-      Info($"Taking backup of Windows Terminal settings file from: {settingsPath}, to: {backupSettingsPath}");
+      Verbose($"Taking backup of Windows Terminal settings file from: {settingsPath}, to: {backupSettingsPath}");
       File.Copy(settingsPath, backupSettingsPath, overwrite: true);
     }
-    Info($"Saving Windows Terminal settings to: {settingsPath}");
+    Verbose($"Saving Windows Terminal settings to: {settingsPath}");
     Models.SaveSettings(settingsPath, root);
   }
 
@@ -125,7 +129,7 @@ static class Program
   {
     Hilight("Listing all shaders in gallery");
 
-    Info($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
+    Verbose($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
     var metadatas = Models.LoadMetadataFromGithub();
     const string nulls = "Unknown";
     foreach (var metadata in metadatas)
@@ -139,7 +143,7 @@ static class Program
   {
     Hilight($"Downloading and installing shader: {installShaderId}");
 
-    Info($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
+    Verbose($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
     var metadatas = Models.LoadMetadataFromGithub();
     var metadata = metadatas
       .FirstOrDefault(md => md?.Id?.Equals(installShaderId, StringComparison.OrdinalIgnoreCase)??false)
@@ -158,31 +162,11 @@ static class Program
   {
     Hilight($"Starting front end");
 
-    var sw = Stopwatch.StartNew();
     Application.Init();
-
 
     try
     {
-      var win = new Window("Windows Terminal Shader Gallery (hit Ctrl-Q to quit)")
-      {
-        X       = 0
-      , Y       = 0
-      , Width   = Dim.Fill()
-      , Height  = Dim.Fill()
-      };
-
-      var info = new Label("Downloading shader metadata...\n(If it seems to get stuck here hit enter)");
-      var dialog = new Dialog("Loading...", 48, 4);
-      dialog.Add(info);
-      win.Add(dialog);
-
-      Info($"Show loading screen: {sw.ElapsedMilliseconds}ms");
-      Application.ExitRunLoopAfterFirstIteration = true;
-      Application.Run(win);
-
-      Info($"Loading model: {sw.ElapsedMilliseconds}ms");
-
+      Verbose($"Downloading shader metadata from https://github.com/mrange/windows-terminal-shader-gallery/");
       var noShader = new MetadataV1()
       {
         MetadataVersion = "1"
@@ -199,8 +183,13 @@ static class Program
         .ToArray()
         ;
 
-      Info($"Setting up main screen: {sw.ElapsedMilliseconds}ms");
-      win.Remove(dialog);
+      var win = new Window("Windows Terminal Shader Gallery (hit Ctrl-Q to quit)")
+      {
+        X       = 0
+      , Y       = 0
+      , Width   = Dim.Fill()
+      , Height  = Dim.Fill()
+      };
 
       var shaderList = model
         .Select(GetTitle)
@@ -370,7 +359,7 @@ static class Program
 
         var effectiveMetaData = metadata.Id == noShader.Id ? null : metadata;
 
-        Hilight($"Downloading and installing shader: {effectiveMetaData?.Id??"no-shader"}");
+        Info($"Downloading and installing shader: {effectiveMetaData?.Id??"no-shader"}");
         ApplyShader(settingsPath, backupSettingsPath, effectiveMetaData);
       }
 
@@ -394,8 +383,6 @@ static class Program
       }
       win.FocusFirst();
 
-      Info($"Starting main screen: {sw.ElapsedMilliseconds}ms");
-      Application.ExitRunLoopAfterFirstIteration = false;
       Application.Run(win);
     }
     finally
@@ -404,10 +391,11 @@ static class Program
     }
   }
 
-  static void RunApp(string? installShaderId, bool? listAllShaders)
+  static void RunApp(string? installShaderId, bool? listAllShaders, bool? verboseOn)
   {
     try
     {
+      VerboseOn = verboseOn ?? false;
       var localAppDataPath      = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
       var packagePath           = Path.Combine(localAppDataPath, "Packages");
       var windowsTerminalPaths  = Directory.GetDirectories(packagePath, "Microsoft.WindowsTerminal_*");
@@ -474,10 +462,16 @@ static class Program
       , description:  "List all shaders in gallery"
       );
 
+    var verboseOption = new Option<bool?>(
+        aliases:      new [] {"--verbose", "-v" }
+      , description:  "Verbose mode"
+      );
+
     var rootCommand = new RootCommand("Installs shaders from Windows Terminal Shader Gallery into Windows Terminal");
     rootCommand.AddOption(installOption);
     rootCommand.AddOption(listOption);
-    rootCommand.SetHandler(RunApp, installOption, listOption);
+    rootCommand.AddOption(verboseOption);
+    rootCommand.SetHandler(RunApp, installOption, listOption, verboseOption);
 
     return rootCommand.Invoke(args);
   }
