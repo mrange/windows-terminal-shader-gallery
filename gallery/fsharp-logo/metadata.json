@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "fsharp-logo",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "MIT", "WTFPL"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez", "Martijn Steinrucken"]
+  },
+  "info": {
+    "title": "F# logo",
+    "summary": "A simple shader featuring the F# logo. F# is a programming language of the ML family. Runs on .NET but also transpiled into JavaScript, Python, Rust and more.",
+    "shadertoy": "DdfXW4"
+  }
+}
