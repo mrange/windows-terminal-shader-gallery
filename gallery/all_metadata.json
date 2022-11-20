@@ -105,6 +105,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "fsharp-weekly-logo",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "MIT", "WTFPL"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez", "nmz", "Matt Taylor", "mercury"]
+  },
+  "info": {
+    "title": "F# weekly logo",
+    "summary": "Sergey Tihon has been running F# weekly for years. This shader is intended as a 'Thank you for your hard work Sergey'",
+    "shadertoy": "cdfXW7"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "glowing-torus",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
