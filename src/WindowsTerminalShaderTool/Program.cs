@@ -391,14 +391,26 @@ static class Program
     }
   }
 
-  static void RunApp(string? installShaderId, bool? listAllShaders, bool? verboseOn)
+  static void RunApp(
+      string? installShaderId
+    , bool?   listAllShaders
+    , bool?   verboseOn
+    , bool?   targetPreview
+    )
   {
     try
     {
       VerboseOn = verboseOn ?? false;
+
+      var folderPattern = targetPreview??false
+        ? "Microsoft.WindowsTerminalPreview_*"
+        : "Microsoft.WindowsTerminal_*"
+        ;
+
       var localAppDataPath      = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
       var packagePath           = Path.Combine(localAppDataPath, "Packages");
-      var windowsTerminalPaths  = Directory.GetDirectories(packagePath, "Microsoft.WindowsTerminal_*");
+      Verbose($"Looking for a directory matching '{folderPattern}' in '{packagePath}'");
+      var windowsTerminalPaths  = Directory.GetDirectories(packagePath, folderPattern);
 
       if (windowsTerminalPaths.Length == 0)
       {
@@ -411,6 +423,7 @@ static class Program
       }
 
       var windowsTerminalPath = windowsTerminalPaths[0];
+
       var settingsPath        = Path.Combine(windowsTerminalPath, "LocalState", "settings.json");
 
       if (!File.Exists(settingsPath))
@@ -462,6 +475,11 @@ static class Program
       , description:  "List all shaders in gallery"
       );
 
+    var previewOption = new Option<bool?>(
+        aliases:      new [] {"--preview", "-p" }
+      , description:  "Target Windows Terminal Preview"
+      );
+
     var verboseOption = new Option<bool?>(
         aliases:      new [] {"--verbose", "-v" }
       , description:  "Verbose mode"
@@ -471,7 +489,14 @@ static class Program
     rootCommand.AddOption(installOption);
     rootCommand.AddOption(listOption);
     rootCommand.AddOption(verboseOption);
-    rootCommand.SetHandler(RunApp, installOption, listOption, verboseOption);
+    rootCommand.AddOption(previewOption);
+    rootCommand.SetHandler(
+        RunApp
+      , installOption
+      , listOption
+      , verboseOption
+      , previewOption
+      );
 
     return rootCommand.Invoke(args);
   }
