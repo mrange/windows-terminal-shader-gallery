@@ -134,9 +134,9 @@ float hexPrism(vec3 p, vec2 h) {
 
 float df(vec3 p) {
   vec3 p0 = p.zyx;
-  p0.xy -= 0.1*TIME;
+  p0.xy -= 0.05*TIME;
   vec2 n0 = hextile(p0.yx);
-  float pp = n0.x-0.25*n0.y-0.5*TIME;
+  float pp = n0.x-0.25*n0.y-0.25*TIME;
   p0.z  += 0.2*sin(pp);
   mat2 r = ROT(-0.2*cos(pp));
   p0.zy = mul(r, p0.zy);
