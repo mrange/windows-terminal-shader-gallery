@@ -222,6 +222,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "neon-city",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "MIT", "WTFPL"],
+    "authors": ["Mårten Rånge", "Inigo Quilez", "sam hocevar", "mercury"]
+  },
+  "info": {
+    "title": "Neon city",
+    "summary": "Driving towards the neon city and the setting sun.",
+    "shadertoy": "csSSWc"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "neonwave-sunrise",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
