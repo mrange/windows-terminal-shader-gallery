@@ -13,26 +13,6 @@ cbuffer PixelShaderSettings {
 };
 
 #define sat(a) clamp(a, 0., 1.)
-float hash(float2 p)
-{
-    p  = 50.0*frac( p*0.3183099 + float2(0.71,0.113));
-    return -1.0+2.0*frac( p.x*p.y*(p.x+p.y) );
-}
-
-float _noise( float2 p )
-{
-    float2 i = floor( p );
-    float2 f = frac( p );
-
-    float2 u = f*f*(3.0-2.0*f);
-
-    return lerp( lerp( hash( i + float2(0.0,0.0) ),
-                        hash( i + float2(1.0,0.0) ), u.x),
-                        lerp( hash( i + float2(0.0,1.0) ),
-                        hash( i + float2(1.0,1.0) ), u.x), u.y);
-}
-
-
 #define PI 3.141592653
 
 float2x2 r2d(float a) { float c= cos(-a), s = sin(-a); return float2x2(c,-s,s,c);}
