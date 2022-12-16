@@ -376,4 +376,17 @@
     "shadertoy": "ds2Gz3"
   }
 }
+,{
+  "metadata-version": "1",
+  "id": "xor-rings",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "MIT"],
+    "authors": ["Mårten Rånge", "Pascal Gilcher", "mercury"]
+  },
+  "info": {
+    "title": "Xor rings",
+    "summary": "I am a big fan of highly saturated glowing colors so naturally I am a big fan of Xor's Cosmic shader.",
+    "shadertoy": "mtlGzr"
+  }
+}
 ]
