@@ -60,7 +60,6 @@ static const vec4 unit4 = vec4(1.0, 1.0, 1.0, 1.0);
 
 static const float overSample   = 4.0;
 static const float ringDistance= 0.075*overSample/4.0;
-static const float noOfRings   = 20.0*4.0/overSample;
 static const float glowFactor  = 0.05;
 
 // License: MIT, author: Pascal Gilcher, found: https://www.shadertoy.com/view/flSXRV
@@ -120,9 +119,10 @@ vec3 effect(vec2 p) {
     ipp.x -= ringDistance*(nr*i);
     float rn = mod1(ipp.x, ringDistance);
     h = hash(rn+123.0*i);
-    col += glow(ipp, h)*step(rn, noOfRings);
+    col += glow(ipp, h);
   }
 
+  col *= smoothstep(1.5, 1.4, length(p));
   col += (0.01*vec3(1.0, 0.25, 0.0))/length(p);
 
   col = sqrt(col);
