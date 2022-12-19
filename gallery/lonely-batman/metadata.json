@@ -1,0 +1,12 @@
+{
+  "metadata-version": "1",
+  "id": "lonely-batman",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
+    "authors": ["z0rg", "StanleySweet"]
+  },
+  "info": {
+    "title": "Lonely Batman",
+    "summary": "A simple flat shaded Batman I made based on Z0rg's work.",
+    "shadertoy": "ms2XWd"
+  }
