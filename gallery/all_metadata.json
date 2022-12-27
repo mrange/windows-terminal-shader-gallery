@@ -186,7 +186,7 @@
   "id": "lonely-batman",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-SA-3.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
-    "authors": ["z0rg", "StanleySweet"]
+    "authors": ["StanleySweet", "z0rg"]
   },
   "info": {
     "title": "Lonely Batman",
