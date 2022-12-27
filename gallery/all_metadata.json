@@ -53,6 +53,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "crt-look",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "CRT look",
+    "summary": "Attempting to recreate classic CRT look, one of the first shader created by me for Windows Terminal.",
+    "shadertoy": "mtfGzX"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "dreams-of-amber",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
