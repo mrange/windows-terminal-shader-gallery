@@ -99,7 +99,7 @@ vec2 cell(float n) {
 vec2 df(vec2 p) {
   const float w = 2.0/3.0;
 
-  float tm = 0.5*TIME;
+  float tm = 0.25*TIME;
   float m = fract(tm);
   float f = floor(tm);
   float z = forward(m);
@@ -116,7 +116,7 @@ vec2 df(vec2 p) {
   float h2 = fract(8677.0*h0);
   float sh2 = (h2-0.5)*2.0;
 
-  float a = TAU*h2+sqrt(abs(sh2))*sign(sh2)*TIME*TAU/20.0;
+  float a = TAU*h2+sqrt(abs(sh2))*sign(sh2)*TIME*TAU/60.0;
   p0 = mul(p0, ROT(a));
   float d0 = arc(p0, sca(PI/4.0+0.5*PI*h1), c0.x, c0.y*w);
   d0 = abs(d0)-c0.y*0.1;
