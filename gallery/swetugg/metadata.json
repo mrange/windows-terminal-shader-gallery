@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "swetugg",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL", "MIT"],
+    "authors": ["Mårten Rånge", "sam hocevar", "Inigo Quilez"]
+  },
+  "info": {
+    "title": "Swetugg",
+    "summary": "Swetugg organizes good and affordable conferences in Sweden.",
+    "shadertoy": "Dlf3Df"
+  }
+}
