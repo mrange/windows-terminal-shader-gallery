@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "matrix-maelstrom",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "MIT"],
+    "authors": ["Mårten Rånge", "Inigo Quilez", "mercury", "Pascal Gilcher"]
+  },
+  "info": {
+    "title": "Matrix Maelstrom",
+    "summary": "A failed attempt to recreate the matrix took a lucky turn. Uses bit ops which might be finicky on older cards.",
+    "shadertoy": "dlsGDf"
+  }
+}
