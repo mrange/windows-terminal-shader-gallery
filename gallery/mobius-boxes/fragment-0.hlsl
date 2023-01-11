@@ -158,7 +158,7 @@ vec3 effect(vec2 p, vec2 pp) {
 
   col *= smoothstep(1.5, 0.5, length(pp));
   col = clamp(col, 0.0, 1.0);
-  col = sqrt(col);
+  col = sqrt(col).xzy;
 
   return col;
 }
