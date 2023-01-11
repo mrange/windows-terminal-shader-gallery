@@ -275,6 +275,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "mobius-boxes",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "MIT"],
+    "authors": ["Mårten Rånge", "Inigo Quilez", "mercury", "Hexler"]
+  },
+  "info": {
+    "title": "Mobius boxes",
+    "summary": "Boxes distored by apply mobius transform.",
+    "shadertoy": "dlSGWm"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "neon-city",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "MIT", "WTFPL"],
