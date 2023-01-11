@@ -282,7 +282,7 @@
   },
   "info": {
     "title": "Mobius boxes",
-    "summary": "Boxes distored by apply mobius transform.",
+    "summary": "Pink boxes distored by apply mobius transform.",
     "shadertoy": "dlSGWm"
   }
 }
