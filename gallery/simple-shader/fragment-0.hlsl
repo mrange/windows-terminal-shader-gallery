@@ -42,7 +42,10 @@ float4 main(float4 pos : SV_POSITION, float2 tex : TEXCOORD) : SV_TARGET
 float4 ps_main(float4 pos : SV_POSITION, float2 tex : TEXCOORD) : SV_TARGET
 #endif
 {
+  // q is the "pixel" coordinate where 0,0 is one corner of the screen
+  //  and 1,1 in the opposite corner
   float2 q = tex;
+  // p is -1,-1 in one corner of the screen and 1,1 in the opposite corner.
   float2 p = -1.0 + 2.0*q;
 
   // Compute a simple gradient
