@@ -6,7 +6,7 @@
     "authors": ["Mårten Rånge"]
   },
   "info": {
-    "title": "Simple circle",
+    "title": "Simple shader",
     "summary": "A simple shader as a minimal example on how to do a Windows Terminal shader",
     "shadertoy": "ct2GDK"
   }
