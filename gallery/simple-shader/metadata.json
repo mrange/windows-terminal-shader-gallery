@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "simple-shader",
+  "legal": {
+    "license-expressions": ["CC0-1.0"],
+    "authors": ["Mårten Rånge"]
+  },
+  "info": {
+    "title": "Simple circle",
+    "summary": "A simple shader as a minimal example on how to do a Windows Terminal shader",
+    "shadertoy": "ct2GDK"
+  }
+}
