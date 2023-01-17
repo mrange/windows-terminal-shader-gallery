@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "infinite-boxes",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "MIT"],
+    "authors": ["Mårten Rånge", "Inigo Quilez", "mercury"]
+  },
+  "info": {
+    "title": "Infinite boxes",
+    "summary": "Result from experimenting with zoom invariant subdividing of 2D space.",
+    "shadertoy": "dtXGWj"
+  }
+}
