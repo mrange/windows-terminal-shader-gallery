@@ -89,6 +89,9 @@ vec4 plane(vec2 p, float i, float zf, float z, vec3 bgcol) {
   cp.x += 0.95*(sz-r-amp)*sign(h3-0.5)*h3;
   cp.y += 0.475*(sz-2.0*r)*sign(h5-0.5)*h5;
   float d = length(cp)-r;
+  if (d > aa) {
+    return 0.0;
+  }
   vec3 ocol = (0.5+0.5*sin(vec3(0.0, 1.0, 2.0)+h1*TAU));
   vec3 icol = sqrt(ocol);
   ocol *= 1.5;
