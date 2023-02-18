@@ -69,7 +69,7 @@ vec2 mod2(inout vec2 p, vec2 size) {
 }
 
 vec4 plane(vec2 p, float i, float zf, float z, vec3 bgcol) {
-  const float cf = 0.925;
+  const float cf = 0.95;
   float sz = 0.5*zf;
   vec2 cp = p;
   vec2 cn = mod2(cp, vec2(2.0*sz, sz));
