@@ -99,8 +99,10 @@ vec4 plane(vec2 p, float i, float zf, float z, vec3 bgcol) {
   const vec3 lightDir = normalize(vec3(1.0, 1.5, 2.0));
   float z2 = (r*r-dot(cp, cp));
   vec3 col = ocol;
+  float t = smoothstep(aa, -aa, d);
   if (z2 > 0.0) {
     float z = sqrt(z2);
+    t *= mix(1.0, 0.8, z/r);
     vec3 pp = vec3(cp, z);
     vec3 nn = normalize(pp);
     float dd= max(dot(lightDir, nn), 0.0);
@@ -109,7 +111,6 @@ vec4 plane(vec2 p, float i, float zf, float z, vec3 bgcol) {
   }
   col *= mix(0.8, 1.0, h0);
   col = mix(bgcol, col, fi);
-  float t = smoothstep(aa, -aa, d);
   return vec4(col, t);
 }
 
