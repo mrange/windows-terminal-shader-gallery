@@ -69,6 +69,7 @@ vec2 mod2(inout vec2 p, vec2 size) {
 }
 
 vec4 plane(vec2 p, float i, float zf, float z, vec3 bgcol) {
+  const float cf = 0.925;
   float sz = 0.5*zf;
   vec2 cp = p;
   vec2 cn = mod2(cp, vec2(2.0*sz, sz));
@@ -81,16 +82,16 @@ vec4 plane(vec2 p, float i, float zf, float z, vec3 bgcol) {
   if (h4 < 0.5) {
     return (0.0);
   }
-  float fi = exp(-0.25*max(z-1.0, 0.0));
-  float aa = mix(6.0, 1.0, fi)*2.0/RESOLUTION.y;
-  float r  = sz*mix(0.1, 0.475, h0*h0);
+  float fi = exp(-0.25*max(z-2.0, 0.0));
+  float aa = mix(0.0125, 2.0/RESOLUTION.y, fi);
+  float r  = sz*mix(0.1, cf*0.5, h0*h0);
   float amp = mix(0.5, 0.5, h3)*r;
   cp.x -= amp*sin(mix(3.0, 0.25, h0)*TIME+TAU*h2);
-  cp.x += 0.95*(sz-r-amp)*sign(h3-0.5)*h3;
-  cp.y += 0.475*(sz-2.0*r)*sign(h5-0.5)*h5;
+  cp.x += cf*(sz-r-amp)*sign(h3-0.5)*h3;
+  cp.y += (cf*0.5)*(sz-2.0*r)*sign(h5-0.5)*h5;
   float d = length(cp)-r;
   if (d > aa) {
-    return 0.0;
+    return (0.0);
   }
   vec3 ocol = (0.5+0.5*sin(vec3(0.0, 1.0, 2.0)+h1*TAU));
   vec3 icol = sqrt(ocol);
