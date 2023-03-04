@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "necropolis",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "WTFPL", "MIT", "CC-BY-NC-4.0"],
+    "authors": ["Mårten Rånge", "Inigo Quilez", "sam hocevar", "nmz", "Matt Taylor", "mercury", "Claude Brezinski"]
+  },
+  "info": {
+    "title": "Necropolis",
+    "summary": "Flying over an alien necropolis",
+    "shadertoy": "ddcGDX"
+  }
+}
