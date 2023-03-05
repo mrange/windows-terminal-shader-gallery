@@ -353,6 +353,19 @@
 }
 ,{
   "metadata-version": "1",
+  "id": "neon-style",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "MIT", "WTFPL"],
+    "authors": ["Mårten Rånge", "Inigo Quilez", "sam hocevar", "mercury", "Pascal Gilcher", "nmz", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Neon style",
+    "summary": "Neon style background.",
+    "shadertoy": "ddcGW8"
+  }
+}
+,{
+  "metadata-version": "1",
   "id": "neonwave-sunrise",
   "legal": {
     "license-expressions": ["CC0-1.0", "CC-BY-NC-4.0", "WTFPL", "MIT"],
