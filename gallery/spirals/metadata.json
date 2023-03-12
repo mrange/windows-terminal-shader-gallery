@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "spirals",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "MIT", "CC-BY-NC-4.0"],
+    "authors": ["Mårten Rånge", "Inigo Quilez", "nmz", "Matt Taylor", "mercury"]
+  },
+  "info": {
+    "title": "Spirals",
+    "summary": "Dusted off an old failed shader attempt but with a new color palette and some new tricks it looks pretty cool now.",
+    "shadertoy": "DsG3Dm"
+  }
+}
