@@ -98,7 +98,7 @@ vec2 rayCylinder(vec3 ro, vec3 rd, vec3 cb, vec3 ca, float cr) {
 vec3 skyColor(vec3 ro, vec3 rd) {
   const vec3 l = normalize(vec3(0.0, 0.0, -1.0));
   const vec3 baseCol = 0.005*vec3(0.05, 0.33, 1.0);
-  return baseCol/(1.00025+dot(rd, l));
+  return baseCol/(1.0005+dot(rd, l));
 }
 
 vec3 color(vec3 ww, vec3 uu, vec3 vv, vec3 ro, vec2 p) {
@@ -106,7 +106,7 @@ vec3 color(vec3 ww, vec3 uu, vec3 vv, vec3 ro, vec2 p) {
   const float mm  = 3.0;
   const float rep = 27.0;
 
-  vec3 rd = normalize(-p.x*uu + p.y*vv + rdd*ww);
+  vec3 rd = normalize(p.x*uu + p.y*vv + rdd*ww);
 
   vec3 skyCol = skyColor(ro, rd);
 
