@@ -141,6 +141,7 @@ vec3 effect(vec2 p, vec2 pp) {
   float gd = gd0;
   gd = pmax(gd, -(gd1-0.025), 0.075);
   gd = min(gd, gd1);
+  gd = pmin(gd, gd0+0.2, 0.025);
   gd = abs(gd);
   gd -= fo;
 
