@@ -151,6 +151,7 @@ vec3 effect(vec2 p, vec2 pp) {
   if (i < MaxIter) {
   } else {
     float gf = 1E-2/max(gd, fo);
+    gf *= sqrt(gf);
     col += gf*palette(tm+(p2.x-p2.y)+op.x);
   }
 
