@@ -126,7 +126,8 @@ vec3 effect(vec2 p, vec2 pp) {
   p2 = mul(p2, ROT(a));
   p2 += sin(vec2(1., sqrt(0.5))*a*b)/b;
 
-  float fo = 1E-3+s*3E-3;
+  const float gfo = 0.5;
+  float fo = (gfo*1E-3)+s*(gfo*3E-3);
   vec2 c2 = p2;
   hextile(c2);
 
@@ -145,14 +146,11 @@ vec3 effect(vec2 p, vec2 pp) {
   gd = abs(gd);
   gd -= fo;
 
-  float f = i-log2(log2(dot(z2, z2)));
-
   vec3 col = (0.);
 
   if (i < MaxIter) {
   } else {
-    float gf = 1E-2/max(gd, fo);
-    gf *= sqrt(gf);
+    float gf = (gfo*1E-2)/max(gd, fo);
     col += gf*palette(tm+(p2.x-p2.y)+op.x);
   }
 
