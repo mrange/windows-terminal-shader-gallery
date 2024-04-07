@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "mandelmapping",
+  "legal": {
+    "license-expressions": ["CC0-1.0", "MIT"],
+    "authors": ["Mårten Rånge", "Inigo Quilez", "Martijn Steinrucken", "Matt Taylor"]
+  },
+  "info": {
+    "title": "Mandelbrot mapping",
+    "summary": "Tinkering around with mapping coordinates using Mandelbrot",
+    "shadertoy": "4cKGRW"
+  }
+}
