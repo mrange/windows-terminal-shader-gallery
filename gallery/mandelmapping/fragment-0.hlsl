@@ -96,9 +96,9 @@ vec3 palette(float a){
 }
 
 vec3 effect(vec2 p, vec2 pp) {
-  float tm = TIME*0.25;
+  float tm = -TIME*0.25;
   const float MaxIter = 22.;
-  const float zz= 0.25;
+  const float zz= 1.;
   const float b = 0.1;
 
   vec2 op = p;
