@@ -1,0 +1,13 @@
+{
+  "metadata-version": "1",
+  "id": "dtc-crt",
+  "legal": {
+    "license-expressions": ["MIT"],
+    "authors": ["DeanTheCoder"]
+  },
+  "info": {
+    "title": "DeanTheCoder CRT Effect",
+    "summary": "CRT effect by DeanTheCoder. Borrowed with the Dean's permission.",
+    "shadertoy": "Mc2BRc"
+  }
+}
