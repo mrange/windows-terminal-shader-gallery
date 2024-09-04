@@ -14,12 +14,14 @@ cbuffer PixelShaderSettings {
 
 #define TIME        Time
 #define RESOLUTION  Resolution
+#define BACKGROUND  Background
 #else
 float time;
 float2 resolution;
-
+static const float4 background = float4(1.,0.5,0.25, 1.)/6.;
 #define TIME        time
 #define RESOLUTION  resolution
+#define BACKGROUND  background
 #endif
 // --------------------
 
@@ -91,14 +93,14 @@ float h21(vec2 p)
     return fract((p3.x + p3.y) * p3.z);
 }
 
-vec3 image(vec2 q) {
+vec4 image(vec2 q) {
   vec2 p = -1.+2.*q;
   p *= 1.025;
-  vec2 b = step(abs(p), 1.);
+  vec2 b = step(abs(p), (1.));
   q = 0.5+0.5*p;
-  return b.x*b.y*shaderTexture.Sample(samplerState, q).rgb;
+  vec4 icol = shaderTexture.Sample(samplerState, q);
+  return vec4(icol.rgb, b.x*b.y*icol.w);
 }
-
 
 vec3 effect(vec2 fragCoord)
 {
@@ -114,7 +116,6 @@ vec3 effect(vec2 fragCoord)
 
     // Monitor screen.
     float rnd = h21(fragCoord + TIME); // Jitter.
-    vec3 imageRgb = image((st + 0.5) + vec2(rnd * enableSignalDistortion, 0)/res).rgb;
 
 //    return vec4(imageRgb, 1.0);
 
@@ -132,7 +133,6 @@ vec3 effect(vec2 fragCoord)
         {
             // Bevel area.
             col *= mix(0.1, 1.0, bev);
-            col = mix(imageRgb * 0.5, col, 0.5 + 0.5 * smoothstep(0.0, 0.4, bev));
             col = col - vec3(0.0, 0.05, 0.1) * ns;
 
             // Shadow.
@@ -141,11 +141,13 @@ vec3 effect(vec2 fragCoord)
 
             // Screen reflection in the bevel.
             float dir = sign(-uv.x);
-            vec3 tint = 0.;
+            vec3 tint = (0);
             for (float i = -5.0; i < 5.0; i++)
             {
-                for (float j = -5.0; j < 5.0; j++)
-                    tint += image((st * 0.9 + vec2(dir * i, j * 2.0) * 0.002 + 0.5)).rgb;
+                for (float j = -5.0; j < 5.0; j++) {
+                    vec4 tcol = image((st * 0.9 + vec2(dir * i, j * 2.0) * 0.002 + 0.5));
+                    tint += tcol.rgb*tcol.w;
+                }
             }
 
             tint /= 80.0;
@@ -156,21 +158,25 @@ vec3 effect(vec2 fragCoord)
         return col;
     }
 
+    vec4 imageRgb = image(st + 0.5 + vec2(rnd * enableSignalDistortion, 0)/res);
     float lum = 1.0;
 
     // Background noise.
-    // lum += enableSignalDistortion * (rnd - 0.5)*0.2;
+    lum += enableSignalDistortion * (rnd - 0.5)*0.15;
 
     // Scrolling electron bar.
     lum += enableSignalDistortion * bar(uv.y) * 0.2;
 
     // Apply scanlines (if enabled).
-    if (enableScanlines > 0.5 && (int(fragCoord.y) % 2) == 0)
+    int modv = 2+int(RESOLUTION.y/512.);
+    if (enableScanlines > 0.5 && (int(fragCoord.y) % modv) <= modv/2)
         lum *= 0.8;
 
     // Apply main text color tint.
-    vec3 col = imageRgb * lum * brightnessBoost;
+    imageRgb.rgb *= lum * brightnessBoost;
 
+
+    vec3 col = BACKGROUND.rgb*BACKGROUND.w;
     if (enableShadows > 0.5)
     {
         // Screen shadow.
@@ -180,11 +186,13 @@ vec3 effect(vec2 fragCoord)
         col *= min(1.0, 0.5 + bright);
 
         // Glare.
-        col = mix(col, 0.75 + 0.25 * ns, bright * 0.25 * smoothstep(0.7, 0.0, length((uv - vec2(0.15, -0.3)) * vec2(1.0, 2.0))));
-
-        // Vignette.
-        col *= 1.0 - 1.2 * dot(uv, uv);
+        col = mix(col, (0.75 + 0.25 * ns), bright * 0.25 * smoothstep(0.7, 0.0, length((uv - vec2(0.15, -0.3)) * vec2(1.0, 2.0))));
     }
+
+    col += imageRgb.rgb*imageRgb.w;
+
+    // Vignette.
+    col *= 1.0 - 1.2 * dot(uv, uv);
 
     return col;
 }
